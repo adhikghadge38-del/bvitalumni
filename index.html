@@ -1116,6 +1116,18 @@
                                 <p>Gifts Given</p>
                             </div>
                         </div>
+                        <div class="stat-card"
+                            style="grid-column: span 3; background: #f8fafc; border: 1px solid #e2e8f0; height: auto;">
+                            <div style="padding: 1rem; width: 100%;">
+                                <h4
+                                    style="margin-bottom: 0.75rem; font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">
+                                    Registered per Department</h4>
+                                <div id="dept-stats-container"
+                                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                                    <!-- Dynamic content here -->
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-grid">
                         <div class="card">
@@ -1297,6 +1309,26 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card" style="margin-bottom:1.5rem; background: #fffbeb; border: 1px solid #fde68a;">
+                        <div class="card-header" style="background:transparent; border:none; padding-bottom:0.5rem;">
+                            <h3 class="card-title" style="color: #92400e;"><i class="fas fa-exclamation-triangle"></i>
+                                Branch Correction</h3>
+                        </div>
+                        <div style="padding: 0 1.25rem 1.25rem;">
+                            <p style="font-size:0.85rem; color:#b45309; margin-bottom:1rem;">If a student from another
+                                branch is here, find them by mobile number to correct their branch.</p>
+                            <div style="display:flex; gap:0.5rem;">
+                                <input type="tel" id="deptCorrectionMobile" class="form-control"
+                                    placeholder="Enter student mobile number" maxlength="10">
+                                <button class="btn" style="background:#f59e0b;" onclick="findStudentForCorrection()"><i
+                                        class="fas fa-search"></i> Find</button>
+                            </div>
+                            <div id="correctionResult" style="margin-top:1rem; display:none;">
+                                <!-- Result shown here -->
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title"><i class="fas fa-users" style="color:var(--primary);"></i> Students
@@ -1312,8 +1344,9 @@
                                         <th>Entry No</th>
                                         <th>Name</th>
                                         <th>Mobile</th>
+                                        <th>Branch</th>
                                         <th>Time</th>
-                                        <th>Status/Action</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="deptTableBody"></tbody>
@@ -1495,6 +1528,41 @@
                     <button type="submit" class="btn btn-primary" style="margin-left:0.5rem;">Update Details</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Branch Correction Modal -->
+    <div id="branchModal" class="modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 style="margin:0;"><i class="fas fa-exchange-alt"></i> Change Branch</h3>
+                <button onclick="closeBranchModal()"
+                    style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="branchModalStudent"
+                    style="background:#f8fafc; padding:1rem; border-radius:8px; margin-bottom:1.25rem;">
+                    <!-- Student details like Name, Mobile -->
+                </div>
+                <input type="hidden" id="branchModalMobile">
+                <div class="form-group">
+                    <label>Select Correct Branch</label>
+                    <select id="branchModalSelect" class="form-control">
+                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                        <option value="Computer Technology">Computer Technology</option>
+                        <option value="Electrical Engineering">Electrical Engineering</option>
+                        <option value="Electronics &amp; Telecommunication (EJ)">Electronics &amp; Telecommunication
+                            (EJ)</option>
+                        <option value="Information Technology">Information Technology</option>
+                        <option value="Civil Engineering">Civil Engineering</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeBranchModal()">Cancel</button>
+                <button class="btn btn-primary" style="margin-left:0.5rem;" onclick="saveBranchCorrection()">Save
+                    Changes</button>
+            </div>
         </div>
     </div>
 
@@ -1756,15 +1824,23 @@
             const pass = document.getElementById('loginPassword').value.trim();
             if (loginTabSelected === 'admin') {
                 const user = document.getElementById('loginUsername').value.trim();
-                if (user === 'admin' && pass === 'admin123') loginSuccess('admin');
+                if (user === 'admin' && pass === 'bvitadmin0027') loginSuccess('admin');
                 else showToast('Invalid credentials', 'error');
             } else if (loginTabSelected === 'clerk') {
                 const user = document.getElementById('loginUsername').value.trim();
-                if (user === 'clerk' && pass === 'clerk123') loginSuccess('clerk');
+                if (user === 'clerk' && pass === 'bvit0027') loginSuccess('clerk');
                 else showToast('Invalid credentials', 'error');
             } else if (loginTabSelected === 'dept') {
-                if (pass === 'dept123') { // standard password for departments
-                    const branch = document.getElementById('loginDeptSelect').value;
+                const branch = document.getElementById('loginDeptSelect').value;
+                const deptPasswords = {
+                    "Information Technology": "325624610",
+                    "Mechanical Engineering": "325661210",
+                    "Computer Technology": "325625110",
+                    "Electronics & Telecommunication (EJ)": "325637210",
+                    "Civil Engineering": "325619110",
+                    "Electrical Engineering": "325629310"
+                };
+                if (pass === deptPasswords[branch]) {
                     loginSuccess('dept', branch);
                 } else {
                     showToast('Invalid department password', 'error');
@@ -2133,6 +2209,26 @@
             document.getElementById('ad-total').innerText = alumniList.length;
             document.getElementById('ad-attended').innerText = alumniList.filter(a => a.attended).length;
             document.getElementById('ad-gifts').innerText = alumniList.filter(a => a.giftGiven).length;
+
+            // Department-wise counts
+            const counts = {};
+            alumniList.forEach(a => {
+                const dept = a.course || 'Other';
+                counts[dept] = (counts[dept] || 0) + 1;
+            });
+
+            const container = document.getElementById('dept-stats-container');
+            if (container) {
+                container.innerHTML = Object.keys(counts).sort().map(dept => {
+                    const shortDept = dept.replace(/^.+\((.+)\)$/, '$1'); // Extract abbreviation if exists
+                    return `
+                        <div style="background: white; padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px solid #edf2f7; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 0.8rem; font-weight: 500; color: var(--text-muted);">${shortDept}</span>
+                            <span style="font-weight: 700; color: var(--primary); font-size: 1rem;">${counts[dept]}</span>
+                        </div>
+                    `;
+                }).join('');
+            }
         }
 
         function updateAdminBranchDropdown() {
@@ -2428,14 +2524,22 @@
         function handleUpdate(e) {
             e.preventDefault();
             const mobile = document.getElementById('editMobile').value;
+            const oldStudent = alumniList.find(a => a.mobile === mobile);
+
+            const newCourse = document.getElementById('editCourse').value;
             const updateData = {
                 name: document.getElementById('editName').value.trim(),
                 gender: document.getElementById('editGender').value,
-                course: document.getElementById('editCourse').value,
+                course: newCourse,
                 batch: document.getElementById('editBatch').value.trim(),
                 edited: true,
                 editedAt: new Date().toISOString()
             };
+
+            // If branch changed, update entry number too
+            if (oldStudent && oldStudent.course !== newCourse) {
+                updateData.entryNo = generateEntryNumber(newCourse);
+            }
 
             alumniRef.child(mobile).update(updateData)
                 .then(() => {
@@ -2473,6 +2577,11 @@
                 const giftBtn = a.giftGiven
                     ? `<button class="btn btn-success btn-sm" onclick="toggleGift('${a.mobile}')"><i class="fas fa-check-circle"></i> Distributed</button><br><span style="font-size:0.75rem; color:var(--success); margin-top:4px; display:inline-block;">at ${a.giftTime || '--'}</span>`
                     : `<button class="btn btn-secondary btn-sm" style="border-color:var(--primary);color:var(--primary);" onclick="toggleGift('${a.mobile}')"><i class="fas fa-gift"></i> Give Gift</button>`;
+
+                const verifyStatus = a.departmentVerified
+                    ? `<span style="color:#059669; font-size:0.75rem; font-weight:600;"><i class="fas fa-check-double"></i> Verified at ${a.verifyTime || '--'}</span>`
+                    : `<span style="color:#b45309; font-size:0.75rem; font-weight:600;"><i class="fas fa-clock"></i> Pending Dept</span>`;
+
                 const tr = document.createElement('tr');
                 tr.className = 'clerk-row';
                 tr.innerHTML = `
@@ -2480,7 +2589,12 @@
             <td style="font-weight:600;">${a.name}</td>
             <td>${a.mobile}</td>
             <td><span class="badge badge-info">${short}</span></td>
-            <td style="color:var(--text-muted);">${a.entryTime}</td>
+            <td>
+                <div style="font-size:0.85rem; line-height:1.3;">
+                    <span title="Entry Time"><i class="fas fa-sign-in-alt" style="width:14px; opacity:0.6;"></i> ${a.entryTime}</span><br>
+                    ${verifyStatus}
+                </div>
+            </td>
             <td style="text-align:center;">${giftBtn}</td>`;
                 tbody.appendChild(tr);
             });
@@ -2524,6 +2638,7 @@
             [...deptStudents].reverse().forEach(a => {
                 if (q && !([a.name, a.mobile, a.entryNo].some(v => (v || '').toLowerCase().includes(q)))) return;
 
+                const short = a.course ? a.course.replace(/^.+\((.+)\)$/, '$1') : '—';
                 const verifyBtn = a.departmentVerified
                     ? `<button class="btn btn-success btn-sm" onclick="unverifyStudentByDept('${a.mobile}')"><i class="fas fa-check-circle"></i> Verified (Undo)</button>`
                     : `<button class="btn btn-warning btn-sm" onclick="verifyStudentByDept('${a.mobile}')"><i class="fas fa-check"></i> Verify</button>`;
@@ -2533,7 +2648,13 @@
                     <td><b style="color:var(--primary);letter-spacing:2px;">${a.entryNo || '--'}</b></td>
                     <td style="font-weight:600;">${a.name}</td>
                     <td>${a.mobile}</td>
-                    <td style="color:var(--text-muted);">${a.entryTime}</td>
+                    <td><span class="badge badge-info" style="cursor:pointer;" onclick="openBranchModal('${a.mobile}')" title="Click to Change Branch">${short} <i class="fas fa-edit" style="font-size:0.7rem; opacity:0.7;"></i></span></td>
+                    <td>
+                        <div style="font-size:0.85rem; line-height:1.4;">
+                            <div title="Entry Time"><i class="fas fa-sign-in-alt" style="width:14px; color:var(--text-muted);"></i> ${a.entryTime}</div>
+                            ${a.departmentVerified ? `<div style="color:#059669; font-weight:600;" title="Verification Time"><i class="fas fa-check-circle" style="width:14px;"></i> ${a.verifyTime || '--'}</div>` : ''}
+                        </div>
+                    </td>
                     <td>
                         <div style="display:flex; gap:0.4rem; align-items:center;">
                             ${verifyBtn}
@@ -2544,10 +2665,93 @@
             });
         }
 
+        // Branch Correction Functions
+        function findStudentForCorrection() {
+            const mobile = document.getElementById('deptCorrectionMobile').value.trim();
+            const resultEl = document.getElementById('correctionResult');
+            if (mobile.length !== 10) {
+                showToast('Please enter a valid 10-digit mobile number.', 'error');
+                return;
+            }
+
+            const s = alumniList.find(x => x.mobile === mobile);
+            if (!s) {
+                resultEl.innerHTML = `<p style="color:#b91c1c; font-size:0.9rem;"><i class="fas fa-times-circle"></i> Student with mobile ${mobile} not found.</p>`;
+                resultEl.style.display = 'block';
+                return;
+            }
+
+            resultEl.innerHTML = `
+                <div style="background:white; padding:1rem; border-radius:8px; border:1px solid #fde68a; display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <strong style="display:block;">${s.name}</strong>
+                        <span style="font-size:0.8rem; color:var(--text-muted);">Current Branch: ${s.course || 'None'}</span>
+                    </div>
+                    <button class="btn btn-sm" style="background:var(--primary);" onclick="openBranchModal('${s.mobile}')">Change Branch</button>
+                </div>
+            `;
+            resultEl.style.display = 'block';
+        }
+
+        function openBranchModal(mobile) {
+            const s = alumniList.find(x => x.mobile === mobile);
+            if (!s) return;
+
+            document.getElementById('branchModalMobile').value = s.mobile;
+            document.getElementById('branchModalStudent').innerHTML = `
+                <div style="font-weight:700; color:var(--primary); font-size:1.1rem;">${s.name}</div>
+                <div style="font-size:0.9rem; color:var(--text-muted); margin-top:2px;">Mobile: ${s.mobile}</div>
+                <div style="font-size:0.85rem; color:#92400e; margin-top:5px; background:#fffbeb; padding:4px 8px; border-radius:4px; display:inline-block;">Current: ${s.course || '—'}</div>
+            `;
+            document.getElementById('branchModalSelect').value = s.course || 'Mechanical Engineering';
+            document.getElementById('branchModal').classList.add('show');
+        }
+
+        function closeBranchModal() {
+            document.getElementById('branchModal').classList.remove('show');
+        }
+
+        function saveBranchCorrection() {
+            const mobile = document.getElementById('branchModalMobile').value;
+            const newBranch = document.getElementById('branchModalSelect').value;
+            const s = alumniList.find(x => x.mobile === mobile);
+
+            if (!s) return;
+            if (s.course === newBranch) {
+                closeBranchModal();
+                return;
+            }
+
+            if (!confirm(`Are you sure you want to move ${s.name} to ${newBranch}? The Entry Number will also be updated.`)) return;
+
+            const newEntryNo = generateEntryNumber(newBranch);
+
+            alumniRef.child(mobile).update({
+                course: newBranch,
+                entryNo: newEntryNo,
+                edited: true,
+                editedAt: new Date().toISOString()
+            }).then(() => {
+                showToast(`Branch & Entry No (${newEntryNo}) updated!`, 'success');
+                closeBranchModal();
+                document.getElementById('correctionResult').style.display = 'none';
+                document.getElementById('deptCorrectionMobile').value = '';
+                // The table will auto-refresh via Firebase listener
+            }).catch(e => {
+                showToast('Update failed!', 'error');
+                console.error(e);
+            });
+        }
+
         function filterDeptTable() { renderDeptTable(); }
 
         function verifyStudentByDept(mobile) {
-            alumniRef.child(mobile).update({ departmentVerified: true })
+            const now = new Date();
+            const verifyTime = format12HourTime(now);
+            alumniRef.child(mobile).update({
+                departmentVerified: true,
+                verifyTime: verifyTime
+            })
                 .then(() => showToast('Student verified successfully!', 'success'))
                 .catch(() => showToast('Error verifying', 'error'));
         }
