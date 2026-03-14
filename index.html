@@ -50,7 +50,7 @@
         .public-layout {
             display: none;
             min-height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('loginpage.jpg') center center no-repeat fixed;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('loginpage.jpg') center center no-repeat fixed;
             background-size: 100% 100%;
             align-items: center;
             justify-content: center;
@@ -363,15 +363,31 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            white-space: nowrap;
         }
 
         th,
         td {
-            padding: 1rem;
+            padding: 0.75rem 0.5rem;
             text-align: left;
             border-bottom: 1px dashed var(--border);
-            font-size: .9rem;
+            font-size: .85rem;
+        }
+
+        /* Prevent specific columns from wrapping */
+        .nowrap {
+            white-space: nowrap;
+        }
+
+        .name-cell {
+            min-width: 180px;
+            white-space: normal;
+            word-break: break-all;
+            line-height: 1.3;
+        }
+
+        .actions-cell {
+            text-align: right;
+            padding-right: 1rem;
         }
 
         th {
@@ -463,7 +479,7 @@
         .login-tabs {
             display: flex;
             margin-bottom: 2rem;
-            background: rgba(0,0,0,0.05);
+            background: rgba(0, 0, 0, 0.05);
             border-radius: 8px;
             padding: .3rem;
         }
@@ -593,24 +609,39 @@
         }
 
         /* Entry Public Page */
-        .public-layout.entry-mode { align-items: flex-start !important; padding: 2rem 1rem !important; }
+        .public-layout.entry-mode {
+            align-items: flex-start !important;
+            padding: 2rem 1rem !important;
+        }
+
         .entry-card {
             background: white;
             border-radius: 16px;
             padding: 2rem;
             width: 100%;
             max-width: 700px;
-            box-shadow: 0 20px 50px rgba(0,0,0,.12);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, .12);
             margin: 0 auto;
         }
+
         .entry-header {
             text-align: center;
             padding-bottom: 1.5rem;
             border-bottom: 2px solid var(--primary);
             margin-bottom: 1.5rem;
         }
-        .entry-header h2 { font-size: 1.4rem; color: var(--primary); font-weight: 700; }
-        .entry-header p { color: var(--text-muted); font-size: .875rem; }
+
+        .entry-header h2 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .entry-header p {
+            color: var(--text-muted);
+            font-size: .875rem;
+        }
+
         .section-title {
             background: var(--primary);
             color: white;
@@ -620,6 +651,7 @@
             font-size: .9rem;
             margin: 1.5rem 0 1rem;
         }
+
         .field-row {
             display: grid;
             grid-template-columns: 180px 1fr;
@@ -627,15 +659,58 @@
             align-items: center;
             margin-bottom: .75rem;
         }
-        .field-row label { font-size: .875rem; font-weight: 500; color: #374151; }
-        .field-row .form-control { padding: .5rem .75rem; font-size: .875rem; }
-        .feedback-table { width: 100%; border-collapse: collapse; margin-top: .5rem; font-size: .85rem; }
-        .feedback-table th { background: #f1f5f9; padding: .6rem .5rem; text-align: center; font-size: .78rem; border: 1px solid #e2e8f0; }
-        .feedback-table th:first-child { text-align: left; }
-        .feedback-table td { padding: .5rem .5rem; border: 1px solid #e2e8f0; text-align: center; }
-        .feedback-table td:first-child { text-align: left; font-size: .82rem; }
-        .feedback-table tr:nth-child(even) td { background: #f8fafc; }
-        .feedback-table input[type=radio] { width: 16px; height: 16px; accent-color: var(--primary); }
+
+        .field-row label {
+            font-size: .875rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .field-row .form-control {
+            padding: .5rem .75rem;
+            font-size: .875rem;
+        }
+
+        .feedback-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: .5rem;
+            font-size: .85rem;
+        }
+
+        .feedback-table th {
+            background: #f1f5f9;
+            padding: .6rem .5rem;
+            text-align: center;
+            font-size: .78rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .feedback-table th:first-child {
+            text-align: left;
+        }
+
+        .feedback-table td {
+            padding: .5rem .5rem;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .feedback-table td:first-child {
+            text-align: left;
+            font-size: .82rem;
+        }
+
+        .feedback-table tr:nth-child(even) td {
+            background: #f8fafc;
+        }
+
+        .feedback-table input[type=radio] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--primary);
+        }
+
         .success-box {
             background: #f0fdf4;
             border: 2px dashed #22c55e;
@@ -644,6 +719,7 @@
             margin: 1.5rem 0;
             text-align: center;
         }
+
         .big-no {
             font-size: 3.5rem;
             font-weight: 800;
@@ -692,14 +768,66 @@
             animation: spin .8s linear infinite;
             margin: 0 auto 1rem;
         }
+
         /* Modal */
-        .modal { display:none; position:fixed; z-index:2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.5); align-items:center; justify-content:center; }
-        .modal.show { display:flex; }
-        .modal-card { background:#fff; width:100%; max-width:450px; border-radius:12px; box-shadow:0 20px 25px -5px rgba(0,0,0,0.1); overflow:hidden; animation:modalSlide 0.3s ease; }
-        @keyframes modalSlide { from { transform:translateY(-20px); opacity:0; } to { transform:translateY(0); opacity:1; } }
-        .modal-header { padding:1.25rem 1.5rem; background:#f8fafc; border-bottom:1px solid #e2e8f0; display:flex; justify-content:space-between; align-items:center; }
-        .modal-body { padding:1.5rem; }
-        .modal-footer { padding:1rem 1.5rem; background:#f8fafc; border-top:1px solid #e2e8f0; text-align:right; }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-card {
+            background: #fff;
+            width: 100%;
+            max-width: 450px;
+            border-radius: 12px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            padding: 1.25rem 1.5rem;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            text-align: right;
+        }
     </style>
 </head>
 
@@ -716,13 +844,18 @@
     <!-- PUBLIC LAYOUT: Login + Entry Form -->
     <div class="public-layout" id="publicLayout">
 
-        <button id="loginTriggerBtn" class="login-trigger-btn" onclick="openLoginBox()"><i class="fas fa-lock"></i> Staff Login</button>
+        <button id="loginTriggerBtn" class="login-trigger-btn" onclick="openLoginBox()"><i class="fas fa-lock"></i>
+            Staff Login</button>
 
         <!-- Login Box -->
         <div class="login-box" id="loginView">
-            <button onclick="closeLoginBox()" style="position:absolute; top:1.2rem; right:1.5rem; background:none; border:none; font-size:1.8rem; color:var(--text-muted); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'">&times;</button>
+            <button onclick="closeLoginBox()"
+                style="position:absolute; top:1.2rem; right:1.5rem; background:none; border:none; font-size:1.8rem; color:var(--text-muted); cursor:pointer; transition:0.2s;"
+                onmouseover="this.style.color='var(--primary)'"
+                onmouseout="this.style.color='var(--text-muted)'">&times;</button>
             <div style="text-align:center; margin-bottom:1.5rem;">
-                <h2 style="font-size:1.5rem; color:var(--text-main); font-weight:700;">BHARATI VIDYAPEETH INSTITUTE OF TECHNOLOGY NAVI MUMBAI</h2>
+                <h2 style="font-size:1.5rem; color:var(--text-main); font-weight:700;">BHARATI VIDYAPEETH INSTITUTE OF
+                    TECHNOLOGY NAVI MUMBAI</h2>
                 <p style="color:var(--primary); font-weight:600; font-size:1.05rem;">ALUMNI MEET 2026</p>
             </div>
             <div class="login-tabs">
@@ -741,7 +874,8 @@
                         <option value="Mechanical Engineering">Mechanical Engineering</option>
                         <option value="Computer Technology">Computer Technology</option>
                         <option value="Electrical Engineering">Electrical Engineering</option>
-                        <option value="Electronics &amp; Telecommunication (EJ)">Electronics &amp; Telecommunication (EJ)</option>
+                        <option value="Electronics &amp; Telecommunication (EJ)">Electronics &amp; Telecommunication
+                            (EJ)</option>
                         <option value="Information Technology">Information Technology</option>
                         <option value="Civil Engineering">Civil Engineering</option>
                     </select>
@@ -761,136 +895,162 @@
 
             <div id="entryFormWrap">
                 <div class="entry-header">
-                    <div style="width:60px;height:60px;background:linear-gradient(135deg,#4f46e5,#7c3aed);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto .75rem;">
+                    <div
+                        style="width:60px;height:60px;background:linear-gradient(135deg,#4f46e5,#7c3aed);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto .75rem;">
                         <i class="fas fa-graduation-cap" style="font-size:1.8rem;color:white;"></i>
                     </div>
                     <h2>ALUMNI REGISTRATION FORM</h2>
                     <p>BHARATI VIDYAPEETH INSTITUTE OF TECHNOLOGY NAVI MUMBAI ALUMNI MEET 2026</p>
                 </div>
 
-                <div id="entryErrMsg" style="display:none; background:#fef2f2; color:#b91c1c; border:1px solid #fecaca; border-radius:8px; padding:.75rem 1rem; font-size:.875rem; margin-bottom:1rem;"></div>
-                <div id="entryInfoMsg" style="display:none; background:#eff6ff; color:#1d4ed8; border:1px solid #bfdbfe; border-radius:8px; padding:.75rem 1rem; font-size:.875rem; margin-bottom:1rem;"></div>
+                <div id="entryErrMsg"
+                    style="display:none; background:#fef2f2; color:#b91c1c; border:1px solid #fecaca; border-radius:8px; padding:.75rem 1rem; font-size:.875rem; margin-bottom:1rem;">
+                </div>
+                <div id="entryInfoMsg"
+                    style="display:none; background:#eff6ff; color:#1d4ed8; border:1px solid #bfdbfe; border-radius:8px; padding:.75rem 1rem; font-size:.875rem; margin-bottom:1rem;">
+                </div>
 
                 <form onsubmit="handleStudentSelfEntry(event)" id="qrEntryForm">
 
                     <!-- STEP 1: Mobile Lookup -->
-                    <div style="background:#f0f4ff; border:1px solid #c7d2fe; border-radius:10px; padding:1rem; margin-bottom:1.25rem;">
-                        <label style="font-weight:600; font-size:.9rem; color:#3730a3; display:block; margin-bottom:.5rem;"><i class="fas fa-search"></i> &nbsp;Find Your Record</label>
+                    <div
+                        style="background:#f0f4ff; border:1px solid #c7d2fe; border-radius:10px; padding:1rem; margin-bottom:1.25rem;">
+                        <label
+                            style="font-weight:600; font-size:.9rem; color:#3730a3; display:block; margin-bottom:.5rem;"><i
+                                class="fas fa-search"></i> &nbsp;Find Your Record</label>
                         <div style="display:flex; gap:.5rem;">
-                            <input type="tel" id="selfEntryMobile" class="form-control" placeholder="Enter your 10-digit Mobile Number" maxlength="10" inputmode="numeric" required style="flex:1;">
-                            <button type="button" class="btn" onclick="lookupStudent()" id="lookupBtn" style="white-space:nowrap;"><i class="fas fa-search"></i> Find</button>
+                            <input type="tel" id="selfEntryMobile" class="form-control"
+                                placeholder="Enter your 10-digit Mobile Number" maxlength="10" inputmode="numeric"
+                                required style="flex:1;">
+                            <button type="button" class="btn" onclick="lookupStudent()" id="lookupBtn"
+                                style="white-space:nowrap;"><i class="fas fa-search"></i> Find</button>
                         </div>
                         <p id="lookupStatus" style="font-size:.8rem; margin-top:.5rem;"></p>
                     </div>
 
                     <div id="mainFormFields" style="display:none;">
 
-                    <div class="section-title"><i class="fas fa-user"></i> &nbsp;Personal Details</div>
+                        <div class="section-title"><i class="fas fa-user"></i> &nbsp;Personal Details</div>
 
-                    <div class="field-row">
-                        <label>Name of Alumnus *</label>
-                        <input type="text" id="qrName" class="form-control" placeholder="Full Name" oninput="this.value = this.value.toUpperCase()" required>
-                    </div>
-                    <div class="field-row">
-                        <label>Gender *</label>
-                        <select id="qrGender" class="form-control" required>
-                            <option value="">Select</option>
-                            <option>Male</option>
-                            <option>Female</option>
-                            <option>Other</option>
-                        </select>
-                    </div>
-                    <div class="field-row">
-                        <label>Date of Birth</label>
-                        <input type="date" id="qrDob" class="form-control">
-                    </div>
-                    <div class="field-row">
-                        <label>Branch / Course *</label>
-                        <select id="qrCourse" class="form-control" required>
-                            <option value="">-- Select Branch --</option>
-                            <option value="Mechanical Engineering">Mechanical Engineering</option>
-                            <option value="Computer Technology">Computer Technology</option>
-                            <option value="Electrical Engineering">Electrical Engineering</option>
-                            <option value="Electronics &amp; Telecommunication (EJ)">Electronics &amp; Telecommunication (EJ)</option>
-                            <option value="Information Technology">Information Technology</option>
-                            <option value="Civil Engineering">Civil Engineering</option>
-                        </select>
-                    </div>
-                    <div class="field-row">
-                        <label>Gender *</label>
-                        <select id="qrGender" class="form-control" required>
-                            <option value="">-- Select Gender --</option>
-                            <option>Male</option>
-                            <option>Female</option>
-                            <option>Other</option>
-                        </select>
-                    </div>
-                    <div class="field-row">
-                        <label>Address for Correspondence</label>
-                        <textarea id="qrAddress" class="form-control" rows="3" placeholder="Your current address"></textarea>
-                    </div>
-                    <div class="field-row">
-                        <label>Email Address</label>
-                        <input type="email" id="qrEmail" class="form-control" placeholder="your@email.com">
-                    </div>
-                    <div class="field-row">
-                        <label>Presently Working / Studying at</label>
-                        <textarea id="qrWorkplace" class="form-control" rows="2" placeholder="Give complete address"></textarea>
-                    </div>
-                    <div class="field-row">
-                        <label>Designation</label>
-                        <input type="text" id="qrDesignation" class="form-control" placeholder="e.g. Software Engineer">
-                    </div>
-                    <div class="field-row">
-                        <label>Major Achievements after Passing</label>
-                        <textarea id="qrAchievements" class="form-control" rows="3" placeholder="Awards, recognitions, etc."></textarea>
-                    </div>
+                        <div class="field-row">
+                            <label>Name of Alumnus *</label>
+                            <input type="text" id="qrName" class="form-control" placeholder="Full Name"
+                                oninput="this.value = this.value.toUpperCase()" required>
+                        </div>
+                        <div class="field-row">
+                            <label>Gender *</label>
+                            <select id="qrGender" class="form-control" required>
+                                <option value="">Select</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="field-row">
+                            <label>Date of Birth</label>
+                            <input type="date" id="qrDob" class="form-control">
+                        </div>
+                        <div class="field-row">
+                            <label>Branch / Course *</label>
+                            <select id="qrCourse" class="form-control" required>
+                                <option value="">-- Select Branch --</option>
+                                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                                <option value="Computer Technology">Computer Technology</option>
+                                <option value="Electrical Engineering">Electrical Engineering</option>
+                                <option value="Electronics &amp; Telecommunication (EJ)">Electronics &amp;
+                                    Telecommunication (EJ)</option>
+                                <option value="Information Technology">Information Technology</option>
+                                <option value="Civil Engineering">Civil Engineering</option>
+                            </select>
+                        </div>
+                        <div class="field-row">
+                            <label>Gender *</label>
+                            <select id="qrGender" class="form-control" required>
+                                <option value="">-- Select Gender --</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="field-row">
+                            <label>Address for Correspondence</label>
+                            <textarea id="qrAddress" class="form-control" rows="3"
+                                placeholder="Your current address"></textarea>
+                        </div>
+                        <div class="field-row">
+                            <label>Email Address</label>
+                            <input type="email" id="qrEmail" class="form-control" placeholder="your@email.com">
+                        </div>
+                        <div class="field-row">
+                            <label>Presently Working / Studying at</label>
+                            <textarea id="qrWorkplace" class="form-control" rows="2"
+                                placeholder="Give complete address"></textarea>
+                        </div>
+                        <div class="field-row">
+                            <label>Designation</label>
+                            <input type="text" id="qrDesignation" class="form-control"
+                                placeholder="e.g. Software Engineer">
+                        </div>
+                        <div class="field-row">
+                            <label>Major Achievements after Passing</label>
+                            <textarea id="qrAchievements" class="form-control" rows="3"
+                                placeholder="Awards, recognitions, etc."></textarea>
+                        </div>
 
-                    <div class="section-title"><i class="fas fa-star"></i> &nbsp;Feedback about College</div>
-                    <p style="font-size:.8rem; color:var(--text-muted); margin-bottom:.75rem;">Please rate each attribute: SA = Strongly Agree | A = Agree | N = Neutral | SD = Strongly Disagree</p>
+                        <div class="section-title"><i class="fas fa-star"></i> &nbsp;Feedback about College</div>
+                        <p style="font-size:.8rem; color:var(--text-muted); margin-bottom:.75rem;">Please rate each
+                            attribute: SA = Strongly Agree | A = Agree | N = Neutral | SD = Strongly Disagree</p>
 
-                    <div style="overflow-x:auto;">
-                    <table class="feedback-table">
-                        <thead>
-                            <tr>
-                                <th style="width:40px;">Sr.</th>
-                                <th>Attribute</th>
-                                <th>SA</th>
-                                <th>A</th>
-                                <th>N</th>
-                                <th>SD</th>
-                            </tr>
-                        </thead>
-                        <tbody id="feedbackRows">
-                        </tbody>
-                    </table>
-                    </div>
+                        <div style="overflow-x:auto;">
+                            <table class="feedback-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width:40px;">Sr.</th>
+                                        <th>Attribute</th>
+                                        <th>SA</th>
+                                        <th>A</th>
+                                        <th>N</th>
+                                        <th>SD</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="feedbackRows">
+                                </tbody>
+                            </table>
+                        </div>
 
-                    <div style="margin-top:1.25rem;">
-                        <label style="font-weight:600; font-size:.9rem; display:block; margin-bottom:.4rem;">General Remark (If any):</label>
-                        <textarea id="qrRemark" class="form-control" rows="3" placeholder="Any suggestions or remarks for the college..."></textarea>
-                    </div>
+                        <div style="margin-top:1.25rem;">
+                            <label style="font-weight:600; font-size:.9rem; display:block; margin-bottom:.4rem;">General
+                                Remark (If any):</label>
+                            <textarea id="qrRemark" class="form-control" rows="3"
+                                placeholder="Any suggestions or remarks for the college..."></textarea>
+                        </div>
 
-                    <button type="submit" class="btn" style="width:100%; margin-top:1.5rem; padding:1rem; font-size:1rem;">
-                        <i class="fas fa-paper-plane"></i> &nbsp;Submit Registration &amp; Mark Entry
-                    </button>
+                        <button type="submit" class="btn"
+                            style="width:100%; margin-top:1.5rem; padding:1rem; font-size:1rem;">
+                            <i class="fas fa-paper-plane"></i> &nbsp;Submit Registration &amp; Mark Entry
+                        </button>
 
                     </div><!-- end mainFormFields -->
                 </form>
             </div>
 
             <div id="entrySuccessWrap" style="display:none; text-align:center; padding:1rem 0;">
-                <div style="width:80px;height:80px;background:#f0fdf4;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+                <div
+                    style="width:80px;height:80px;background:#f0fdf4;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
                     <i class="fas fa-check-circle" style="font-size:2.8rem;color:#22c55e;"></i>
                 </div>
                 <h3 style="font-size:1.6rem; color:#14532d; margin-bottom:.3rem;">ENTRY CONFIRMED!</h3>
                 <p id="entryWelcomeName" style="color:var(--text-muted); margin-bottom:1.5rem;"></p>
                 <div class="success-box">
-                    <p style="color:#16a34a; font-weight:700; font-size:.8rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:.3rem;">Your Entry Number</p>
+                    <p
+                        style="color:#16a34a; font-weight:700; font-size:.8rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:.3rem;">
+                        Your Entry Number</p>
                     <p class="big-no" id="entryNoShow">--</p>
-                    <p style="font-size:.82rem; color:#6b7280; margin-top:.5rem;">Show this number to your Department Desk for verification.</p>
+                    <p style="font-size:.82rem; color:#6b7280; margin-top:.5rem;">Show this number to your Department
+                        Desk for verification.</p>
                 </div>
-                <button class="btn btn-secondary" style="margin-top:.5rem;" onclick="resetEntryForm()"><i class="fas fa-redo"></i> Submit Another</button>
+                <button class="btn btn-secondary" style="margin-top:.5rem;" onclick="resetEntryForm()"><i
+                        class="fas fa-redo"></i> Submit Another</button>
             </div>
         </div>
     </div>
@@ -921,7 +1081,8 @@
         <div class="main-content">
             <div class="top-header">
                 <button class="mobile-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
-                <div style="flex:1; text-align:center; font-weight:600; font-size:1rem;">BHARATI VIDYAPEETH INSTITUTE OF TECHNOLOGY NAVI MUMBAI ALUMNI MEET 2026</div>
+                <div style="flex:1; text-align:center; font-weight:600; font-size:1rem;">BHARATI VIDYAPEETH INSTITUTE OF
+                    TECHNOLOGY NAVI MUMBAI ALUMNI MEET 2026</div>
                 <div class="user-info">
                     <span id="topUsername" style="color:var(--text-muted); font-size:.9rem;"></span>
                     <div class="user-avatar" id="topAvatar">A</div>
@@ -994,7 +1155,8 @@
                                     <div class="form-group">
                                         <label>Full Name</label>
                                         <input type="text" id="regName" class="form-control"
-                                            placeholder="Alumnus full name" oninput="this.value = this.value.toUpperCase()" required>
+                                            placeholder="Alumnus full name"
+                                            oninput="this.value = this.value.toUpperCase()" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Mobile Number</label>
@@ -1008,7 +1170,8 @@
                                             <option value="Mechanical Engineering">Mechanical Engineering</option>
                                             <option value="Computer Technology">Computer Technology</option>
                                             <option value="Electrical Engineering">Electrical Engineering</option>
-                                            <option value="Electronics &amp; Telecommunication (EJ)">Electronics &amp; Telecommunication (EJ)</option>
+                                            <option value="Electronics &amp; Telecommunication (EJ)">Electronics &amp;
+                                                Telecommunication (EJ)</option>
                                             <option value="Information Technology">Information Technology</option>
                                             <option value="Civil Engineering">Civil Engineering</option>
                                         </select>
@@ -1016,7 +1179,8 @@
                                     <div class="form-group">
                                         <label>Batch / Year</label>
                                         <input type="text" id="regBatch" class="form-control"
-                                            placeholder="e.g. 2018-2022" oninput="this.value = this.value.toUpperCase()" required>
+                                            placeholder="e.g. 2018-2022" oninput="this.value = this.value.toUpperCase()"
+                                            required>
                                     </div>
                                     <div class="form-group">
                                         <label>Gender</label>
@@ -1045,8 +1209,8 @@
                                     <p style="font-size:.82rem; color:var(--text-muted); margin-bottom:.8rem;">Upload
                                         Excel or CSV with columns: Name, Mobile, Course, Batch, PassingYear</p>
                                     <div style="display:flex; gap:.5rem; flex-wrap:wrap;">
-                                        <input type="file" id="importFile" accept=".csv, .xlsx, .xls" style="display:none;"
-                                            onchange="handleImport(event)">
+                                        <input type="file" id="importFile" accept=".csv, .xlsx, .xls"
+                                            style="display:none;" onchange="handleImport(event)">
                                         <button class="btn btn-secondary btn-sm"
                                             onclick="document.getElementById('importFile').click()"><i
                                                 class="fas fa-file-import"></i> Choose File</button>
@@ -1071,12 +1235,19 @@
                 <div id="view-all-students" class="view-section">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">All Registered Alumni <span id="adminTableCount" style="font-size: 0.9rem; color: var(--text-muted); font-weight: normal; margin-left: 8px;"></span></h3>
+                            <h3 class="card-title">All Registered Alumni <span id="adminTableCount"
+                                    style="font-size: 0.9rem; color: var(--text-muted); font-weight: normal; margin-left: 8px;"></span>
+                            </h3>
                             <div style="display:flex; gap:0.5rem; align-items:center;">
-                                <button id="fixNamesBtn" class="btn btn-danger btn-sm" onclick="fixBranchNames()" title="Convert all IT/IF names to Information Technology" style="background:#fee2e2; color:#b91c1c; border-color:#fecaca; display:none;">
-                                    <i class="fas fa-magic"></i> Fix Names <span id="fixCountBadge" style="background:#ef4444; color:white; padding:1px 6px; border-radius:10px; font-size:0.75rem; margin-left:4px;">0</span>
+                                <button id="fixNamesBtn" class="btn btn-danger btn-sm" onclick="fixBranchNames()"
+                                    title="Convert all IT/IF names to Information Technology"
+                                    style="background:#fee2e2; color:#b91c1c; border-color:#fecaca; display:none;">
+                                    <i class="fas fa-magic"></i> Fix Names <span id="fixCountBadge"
+                                        style="background:#ef4444; color:white; padding:1px 6px; border-radius:10px; font-size:0.75rem; margin-left:4px;">0</span>
                                 </button>
-                                <select id="adminBranchFilter" class="form-control" style="max-width:160px; height:38px; font-size:0.85rem;" onchange="renderAdminTable()">
+                                <select id="adminBranchFilter" class="form-control"
+                                    style="max-width:160px; height:38px; font-size:0.85rem;"
+                                    onchange="renderAdminTable()">
                                     <option value="">All Branches</option>
                                 </select>
                                 <input type="text" id="adminSearch" class="form-control" placeholder="Search..."
@@ -1087,15 +1258,15 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Entry No</th>
-                                        <th>Name</th>
-                                        <th>Mobile</th>
-                                        <th>Gender</th>
+                                        <th class="nowrap">Entry No</th>
+                                        <th style="min-width:180px;">Name</th>
+                                        <th class="nowrap">Mobile</th>
+                                        <th class="nowrap">Gender</th>
                                         <th>Branch</th>
-                                        <th>Batch</th>
-                                        <th>Status</th>
-                                        <th>Gift</th>
-                                        <th>Actions</th>
+                                        <th class="nowrap">Batch</th>
+                                        <th class="nowrap">Status</th>
+                                        <th class="nowrap">Gift</th>
+                                        <th class="actions-cell">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody id="adminTableBody"></tbody>
@@ -1128,7 +1299,8 @@
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title"><i class="fas fa-users" style="color:var(--primary);"></i> Students Registered</h3>
+                            <h3 class="card-title"><i class="fas fa-users" style="color:var(--primary);"></i> Students
+                                Registered</h3>
                             <input type="text" id="deptSearch" class="form-control"
                                 placeholder="🔍 Search Name/Mobile..." style="max-width:250px;"
                                 oninput="filterDeptTable()">
@@ -1148,7 +1320,8 @@
                             </table>
                         </div>
                         <div id="deptEmptyMsg"
-                            style="text-align:center; padding:2rem; color:var(--text-muted); display:none;">No students from this department have entered yet.</div>
+                            style="text-align:center; padding:2rem; color:var(--text-muted); display:none;">No students
+                            from this department have entered yet.</div>
                     </div>
                 </div>
 
@@ -1216,7 +1389,8 @@
                 <div id="view-clerk-gift-list" class="view-section">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title"><i class="fas fa-gift" style="color:#d946ef;"></i> Gift Distribution Records</h3>
+                            <h3 class="card-title"><i class="fas fa-gift" style="color:#d946ef;"></i> Gift Distribution
+                                Records</h3>
                             <div class="badge badge-info" id="totalGiftsBadge">Gifts: 0</div>
                         </div>
                         <div id="clerkGiftListContainer" style="padding:1rem;">
@@ -1234,10 +1408,12 @@
         <div class="modal-card" style="max-width: 600px;">
             <div class="modal-header">
                 <h3 style="margin:0;"><i class="fas fa-comment-dots"></i> Student Feedback</h3>
-                <button onclick="closeFeedbackModal()" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+                <button onclick="closeFeedbackModal()"
+                    style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
             </div>
             <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
-                <div id="feedbackStudentInfo" style="margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #eee;">
+                <div id="feedbackStudentInfo"
+                    style="margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #eee;">
                     <!-- Student details like Name, Mobile -->
                 </div>
                 <table class="feedback-table" style="font-size: 0.85rem; width: 100%;">
@@ -1254,7 +1430,8 @@
                 </table>
                 <div style="margin-top: 1.5rem;">
                     <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">General Remark:</label>
-                    <div id="feedbackAdminRemark" style="padding: 1rem; background: #f8fafc; border-radius: 8px; font-style: italic; border: 1px solid #e2e8f0;">
+                    <div id="feedbackAdminRemark"
+                        style="padding: 1rem; background: #f8fafc; border-radius: 8px; font-style: italic; border: 1px solid #e2e8f0;">
                     </div>
                 </div>
             </div>
@@ -1269,18 +1446,21 @@
         <div class="modal-card">
             <div class="modal-header">
                 <h3 style="margin:0;"><i class="fas fa-user-edit"></i> Edit Alumnus</h3>
-                <button onclick="closeEditModal()" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+                <button onclick="closeEditModal()"
+                    style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
             </div>
             <form onsubmit="handleUpdate(event)">
                 <div class="modal-body">
                     <input type="hidden" id="editOldMobile">
                     <div class="form-group">
                         <label>Full Name</label>
-                        <input type="text" id="editName" class="form-control" oninput="this.value = this.value.toUpperCase()" required>
+                        <input type="text" id="editName" class="form-control"
+                            oninput="this.value = this.value.toUpperCase()" required>
                     </div>
                     <div class="form-group">
                         <label>Mobile Number (Primary Key)</label>
-                        <input type="tel" id="editMobile" class="form-control" maxlength="10" required readonly style="background:#f1f5f9;">
+                        <input type="tel" id="editMobile" class="form-control" maxlength="10" required readonly
+                            style="background:#f1f5f9;">
                     </div>
                     <div class="form-group" style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
                         <div>
@@ -1293,7 +1473,8 @@
                         </div>
                         <div>
                             <label>Batch</label>
-                            <input type="text" id="editBatch" class="form-control" placeholder="2018-22" oninput="this.value = this.value.toUpperCase()">
+                            <input type="text" id="editBatch" class="form-control" placeholder="2018-22"
+                                oninput="this.value = this.value.toUpperCase()">
                         </div>
                     </div>
                     <div class="form-group">
@@ -1302,7 +1483,8 @@
                             <option value="Mechanical Engineering">Mechanical Engineering</option>
                             <option value="Computer Technology">Computer Technology</option>
                             <option value="Electrical Engineering">Electrical Engineering</option>
-                            <option value="Electronics &amp; Telecommunication (EJ)">Electronics &amp; Telecommunication (EJ)</option>
+                            <option value="Electronics &amp; Telecommunication (EJ)">Electronics &amp; Telecommunication
+                                (EJ)</option>
                             <option value="Information Technology">Information Technology</option>
                             <option value="Civil Engineering">Civil Engineering</option>
                         </select>
@@ -1374,7 +1556,7 @@
                 document.getElementById('loginView').style.display = 'none';
                 const triggerBtn = document.getElementById('loginTriggerBtn');
                 if (triggerBtn) triggerBtn.style.display = 'none';
-                
+
                 document.getElementById('publicEntryView').style.display = 'block';
                 buildFeedbackTable();
                 startDbListener(() => {
@@ -1406,9 +1588,9 @@
             feedbackQuestions.forEach((q, i) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td style="text-align:center; font-weight:600;">${i+1}</td>
+                    <td style="text-align:center; font-weight:600;">${i + 1}</td>
                     <td style="text-align:left; white-space:normal;">${q}</td>
-                    ${['SA','A','N','SD'].map(v => `<td><input type="radio" name="fb${i}" value="${v}" required></td>`).join('')}
+                    ${['SA', 'A', 'N', 'SD'].map(v => `<td><input type="radio" name="fb${i}" value="${v}" required></td>`).join('')}
                 `;
                 tbody.appendChild(row);
             });
@@ -1449,9 +1631,9 @@
                 const newList = [];
                 snapshot.forEach(child => {
                     const data = child.val();
-                    if(data) newList.push(data);
+                    if (data) newList.push(data);
                 });
-                
+
                 // Only update and save if data actually changed (basic count check)
                 if (JSON.stringify(newList) !== JSON.stringify(alumniList)) {
                     alumniList = newList;
@@ -1477,7 +1659,7 @@
         function renderClerkGiftList() {
             const gifted = alumniList.filter(a => a.attended && a.giftGiven && a.departmentVerified);
             document.getElementById('totalGiftsBadge').innerText = `Total Gifts: ${gifted.length}`;
-            
+
             const container = document.getElementById('clerkGiftListContainer');
             container.innerHTML = '';
 
@@ -1557,7 +1739,7 @@
             document.getElementById('tab-clerk').classList.toggle('active', role === 'clerk');
             document.getElementById('tab-dept').classList.toggle('active', role === 'dept');
             document.getElementById('tab-admin').classList.toggle('active', role === 'admin');
-            
+
             if (role === 'dept') {
                 document.getElementById('usernameGroup').style.display = 'none';
                 document.getElementById('loginUsername').required = false;
@@ -1600,13 +1782,13 @@
 
             document.getElementById('publicLayout').style.display = 'none';
             document.getElementById('appLayout').style.display = 'flex';
-            
+
             let topName = '';
             let topInitial = '';
             if (role === 'admin') { topName = 'Administrator'; topInitial = 'A'; document.getElementById('topAvatar').style.background = 'var(--primary)'; }
             else if (role === 'clerk') { topName = 'Clerk / Desk'; topInitial = 'C'; document.getElementById('topAvatar').style.background = 'var(--info)'; }
             else if (role === 'dept') { topName = 'Dept: ' + branch; topInitial = 'D'; document.getElementById('topAvatar').style.background = 'var(--warning)'; }
-            
+
             document.getElementById('topUsername').innerText = topName;
             document.getElementById('topAvatar').innerText = topInitial;
             document.getElementById('sidebarRoleLabel').innerText = role === 'admin' ? 'Admin Panel' : (role === 'dept' ? 'Department Panel' : 'Clerk Panel');
@@ -1735,7 +1917,7 @@
             const mobile = document.getElementById('selfEntryMobile').value.trim();
             const statusEl = document.getElementById('lookupStatus');
             const formFields = document.getElementById('mainFormFields');
-            
+
             if (mobile.length !== 10) {
                 statusEl.innerHTML = '<span style="color:#b91c1c;"><i class="fas fa-exclamation-circle"></i> Enter a valid 10-digit mobile number.</span>';
                 formFields.style.display = 'none';
@@ -1752,13 +1934,13 @@
             }
 
             // Reset form fields before use
-            ['qrName','qrEmail','qrDob','qrAddress','qrWorkplace','qrDesignation','qrAchievements','qrRemark'].forEach(id => {
+            ['qrName', 'qrEmail', 'qrDob', 'qrAddress', 'qrWorkplace', 'qrDesignation', 'qrAchievements', 'qrRemark'].forEach(id => {
                 const el = document.getElementById(id);
-                if(el) { el.value = ''; el.removeAttribute('readonly'); el.style.background = ''; el.style.color = ''; }
+                if (el) { el.value = ''; el.removeAttribute('readonly'); el.style.background = ''; el.style.color = ''; }
             });
-            ['qrCourse','qrGender'].forEach(id => {
+            ['qrCourse', 'qrGender'].forEach(id => {
                 const el = document.getElementById(id);
-                if(el) { el.value = ''; el.removeAttribute('disabled'); el.style.background = ''; el.style.color = ''; }
+                if (el) { el.value = ''; el.removeAttribute('disabled'); el.style.background = ''; el.style.color = ''; }
             });
 
             if (existing) {
@@ -1827,7 +2009,7 @@
             feedbackQuestions.forEach((q, i) => {
                 const sel = document.querySelector(`input[name="fb${i}"]:checked`);
                 if (!sel) fbComplete = false;
-                else feedback[`q${i+1}`] = sel.value;
+                else feedback[`q${i + 1}`] = sel.value;
             });
             if (!fbComplete) { showEntryError('Please answer all feedback questions.'); return; }
 
@@ -1915,7 +2097,7 @@
                 else if (c_lc.includes('chemical')) code = 'CH';
                 else if (c_lc.includes('instrumentation')) code = 'IS';
             }
-            
+
             let max = 0;
             alumniList.forEach(a => {
                 if (a.entryNo && a.entryNo.startsWith(code)) {
@@ -1931,7 +2113,7 @@
             const s = alumniList.find(a => a.mobile === mobile);
             if (!s) return;
             const newVal = !s.giftGiven;
-            
+
             const updatePayload = { giftGiven: newVal };
             if (newVal) {
                 const now = new Date();
@@ -1958,7 +2140,7 @@
             if (!select) return;
             const currentVal = select.value;
             const branches = [...new Set(alumniList.map(a => a.course).filter(Boolean))].sort();
-            
+
             // Only rebuild if count changed or basic check (simple optimization)
             if (select.options.length === branches.length + 1 && branches.length > 0) return;
 
@@ -1991,7 +2173,7 @@
             const btn = document.getElementById('fixNamesBtn');
             const badge = document.getElementById('fixCountBadge');
             if (!btn || !badge) return;
-            
+
             if (targets.length > 0) {
                 btn.style.display = 'inline-flex';
                 badge.innerText = targets.length;
@@ -2003,10 +2185,10 @@
         function renderAdminTable() {
             updateAdminBranchDropdown();
             updateFixBadge();
-            
+
             const q = (document.getElementById('adminSearch')?.value || '').toLowerCase();
             const branch = document.getElementById('adminBranchFilter')?.value || '';
-            
+
             const filtered = alumniList.filter(a => {
                 const matchesSearch = [a.name, a.mobile, a.course, a.entryNo].some(v => String(v || '').toLowerCase().includes(q));
                 const matchesBranch = !branch || a.course === branch;
@@ -2015,16 +2197,16 @@
             const tbody = document.getElementById('adminTableBody');
             const emptyMsg = document.getElementById('adminEmptyMsg');
             const countEl = document.getElementById('adminTableCount');
-            
+
             if (countEl) countEl.innerText = `(Total: ${filtered.length})`;
-            
+
             tbody.innerHTML = '';
             if (filtered.length === 0) { emptyMsg.style.display = 'block'; return; }
             emptyMsg.style.display = 'none';
             [...filtered].reverse().forEach(a => {
                 const fullCourse = a.course || '—';
                 let short = fullCourse;
-                
+
                 // Show FULL names for IT, Electronics, Computer, Electrical, Civil and Mechanical as requested
                 const allFullNames = ["Information Technology", "Electronics", "Computer Technology", "Electrical Engineering", "Civil Engineering", "Mechanical Engineering"];
                 if (allFullNames.some(name => fullCourse.includes(name))) {
@@ -2049,20 +2231,20 @@
                     : (a.giftGiven ? `<span class="badge badge-success"><i class="fas fa-gift"></i> Given</span>` : `<span class="badge badge-danger">Not Given</span>`);
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-            <td><b style="color:var(--primary);letter-spacing:2px;">${a.entryNo || '—'}</b></td>
-            <td style="font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:150px;" title="${a.name}">${a.name}${editedBadge}</td>
-            <td>${a.mobile}</td>
-            <td>${a.gender || '—'}</td>
-            <td style="max-width:180px;">
-                <span class="badge badge-info" title="${fullCourse}" style="font-weight:normal; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:170px;">
+            <td class="nowrap"><b style="color:var(--primary);letter-spacing:2px;">${a.entryNo || '—'}</b></td>
+            <td class="name-cell" title="${a.name}">${a.name}${editedBadge}</td>
+            <td class="nowrap">${a.mobile}</td>
+            <td class="nowrap">${a.gender || '—'}</td>
+            <td>
+                <span class="badge badge-info" title="${fullCourse}" style="font-weight:normal; white-space:normal; line-height:1.2;">
                     ${short}
                 </span>
             </td>
-            <td>${a.batch}</td>
-            <td>${entryBadge}</td>
-            <td>${giftBadge}</td>
-            <td>
-                <div style="display:flex; gap:0.4rem;">
+            <td class="nowrap">${a.batch}</td>
+            <td class="nowrap">${entryBadge}</td>
+            <td class="nowrap">${giftBadge}</td>
+            <td class="actions-cell">
+                <div style="display:flex; gap:0.4rem; justify-content:flex-end;">
                     ${a.attended ? `<button class="btn btn-sm" style="padding:4px 8px; background:#dcfce7; color:#16a34a; border:none;" onclick="downloadStudentPDF('${a.mobile}')" title="Download Registration Form"><i class="fas fa-file-pdf"></i></button>` : ''}
                     ${a.attended ? `<button class="btn btn-sm" style="padding:4px 8px; background:#f0f9ff; color:#0369a1; border:none;" onclick="showFeedbackModal('${a.mobile}')" title="View Feedback"><i class="fas fa-eye"></i></button>` : ''}
                     <button class="btn btn-sm" style="padding:4px 8px; background:#e0e7ff; color:#4338ca; border:none;" onclick="openEditModal('${a.mobile}')" title="Edit"><i class="fas fa-edit"></i></button>
@@ -2120,18 +2302,18 @@
             doc.setFont("times", "bold");
             doc.setFontSize(14);
             doc.text("BHARATI VIDYAPEETH INSTITUTE OF TECHNOLOGY", 105, 20, { align: "center" });
-            
+
             doc.setFontSize(10);
             doc.setFont("times", "normal");
             doc.text("Sector-7, C.B.D., (Belpada), Navi Mumbai.", 105, 25, { align: "center" });
             doc.text("Tel. Nos. : 27577636 / 27572434 / 1074 / 2140 ; Fax No. : 27578126", 105, 30, { align: "center" });
             doc.text("e-mail : alumni.iotmumbai@bharatividyapeeth.edu", 105, 35, { align: "center" });
-            
+
             doc.setFont("times", "bold");
             doc.setFontSize(14);
             doc.text("ALUMNI MEET", 105, 45, { align: "center" });
             doc.text("REGISTRATION CUM FEEDBACK FORM", 105, 52, { align: "center" });
-            
+
             // Underlines
             doc.setLineWidth(0.4);
             doc.line(87, 46, 123, 46);
@@ -2174,20 +2356,20 @@
             const fbArr = [];
             feedbackQuestions.forEach((q, i) => {
                 let val = '';
-                if(s.feedback) val = s.feedback[`q${i+1}`] || '';
+                if (s.feedback) val = s.feedback[`q${i + 1}`] || '';
                 fbArr.push([
                     i + 1,
                     q,
                     val === 'SA' ? 'SA' : '',
-                    val === 'A'  ? 'A' : '',
-                    val === 'N'  ? 'N' : '',
+                    val === 'A' ? 'A' : '',
+                    val === 'N' ? 'N' : '',
                     val === 'SD' ? 'SD' : ''
                 ]);
             });
 
             // Add new page for Feedback Table
             doc.addPage();
-            
+
             doc.autoTable({
                 startY: 20,
                 head: [['Sr.\nNo.', 'Attributes', 'Strongly\nAgree', 'Agree', 'Neutral', 'Strongly\ndisagree']],
@@ -2207,10 +2389,10 @@
             });
 
             let finalY = doc.lastAutoTable.finalY + 15;
-            
+
             doc.setFont("times", "bold");
             doc.text("General Remark (If any):-", 15, finalY);
-            
+
             doc.setFont("times", "normal");
             doc.text(s.remark || "", 15, finalY + 8);
 
@@ -2254,7 +2436,7 @@
                 edited: true,
                 editedAt: new Date().toISOString()
             };
-            
+
             alumniRef.child(mobile).update(updateData)
                 .then(() => {
                     closeEditModal();
@@ -2312,23 +2494,23 @@
             const deptStudents = alumniList.filter(a => {
                 if (!a.attended) return false;
                 if (a.course === currentDeptBranch) return true;
-                
+
                 // Allow Instrumentation students visible in Electrical Engineering
                 if (currentDeptBranch === 'Electrical Engineering') {
                     if (a.course && a.course.toLowerCase().includes('instrumentation')) return true;
                 }
-                
+
                 // Allow Chemical students visible in Civil Engineering
                 if (currentDeptBranch === 'Civil Engineering') {
                     if (a.course && a.course.toLowerCase().includes('chemical')) return true;
                 }
-                
+
                 return false;
             });
-            
+
             const pending = deptStudents.filter(a => !a.departmentVerified);
             const verified = deptStudents.filter(a => a.departmentVerified);
-            
+
             document.getElementById('dept-pending').innerText = pending.length;
             document.getElementById('dept-verified').innerText = verified.length;
 
@@ -2341,11 +2523,11 @@
             const q = (document.getElementById('deptSearch')?.value || '').toLowerCase();
             [...deptStudents].reverse().forEach(a => {
                 if (q && !([a.name, a.mobile, a.entryNo].some(v => (v || '').toLowerCase().includes(q)))) return;
-                
+
                 const verifyBtn = a.departmentVerified
                     ? `<button class="btn btn-success btn-sm" onclick="unverifyStudentByDept('${a.mobile}')"><i class="fas fa-check-circle"></i> Verified (Undo)</button>`
                     : `<button class="btn btn-warning btn-sm" onclick="verifyStudentByDept('${a.mobile}')"><i class="fas fa-check"></i> Verify</button>`;
-                
+
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td><b style="color:var(--primary);letter-spacing:2px;">${a.entryNo || '--'}</b></td>
@@ -2423,7 +2605,7 @@
             if (!confirm(`Found ${targets.length} records with non-standard branch names. Convert all of them now?`)) return;
 
             showToast(`Standardizing ${targets.length} records...`, 'info');
-            
+
             let count = 0;
             for (const s of targets) {
                 try {
@@ -2448,7 +2630,7 @@
                     showToast(`Updating: ${count} of ${targets.length} records...`, 'info');
                 } catch (e) { console.error("Error updating", s.mobile, e); }
             }
-            
+
             showToast(`Update Complete: ${count} names standardized!`, 'success');
             refreshActiveView();
         }
@@ -2490,7 +2672,7 @@
                 </body>
                 </html>
             `;
-            
+
             triggerDownload(table, filename, 'application/vnd.ms-excel');
         }
 
@@ -2553,7 +2735,7 @@
                     let count = 0;
                     let duplicates = 0;
                     let promises = [];
-                    
+
                     json.forEach(row => {
                         // Map possible header names
                         const name = (row.Name || row['Full Name'] || row.name || '').toString().trim();
