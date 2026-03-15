@@ -947,8 +947,8 @@
                             </select>
                         </div>
                         <div class="field-row">
-                            <label>Date of Birth</label>
-                            <input type="date" id="qrDob" class="form-control">
+                            <label>Date of Birth *</label>
+                            <input type="date" id="qrDob" class="form-control" required>
                         </div>
                         <div class="field-row">
                             <label>Branch / Course *</label>
@@ -973,28 +973,28 @@
                             </select>
                         </div>
                         <div class="field-row">
-                            <label>Address for Correspondence</label>
+                            <label>Address for Correspondence *</label>
                             <textarea id="qrAddress" class="form-control" rows="3"
-                                placeholder="Your current address"></textarea>
+                                placeholder="Your current address" required></textarea>
                         </div>
                         <div class="field-row">
-                            <label>Email Address</label>
-                            <input type="email" id="qrEmail" class="form-control" placeholder="your@email.com">
+                            <label>Email Address *</label>
+                            <input type="email" id="qrEmail" class="form-control" placeholder="your@email.com" required>
                         </div>
                         <div class="field-row">
-                            <label>Presently Working / Studying at</label>
+                            <label>Presently Working / Studying at *</label>
                             <textarea id="qrWorkplace" class="form-control" rows="2"
-                                placeholder="Give complete address"></textarea>
+                                placeholder="Give complete address" required></textarea>
                         </div>
                         <div class="field-row">
-                            <label>Designation</label>
+                            <label>Designation *</label>
                             <input type="text" id="qrDesignation" class="form-control"
-                                placeholder="e.g. Software Engineer">
+                                placeholder="e.g. Software Engineer" required>
                         </div>
                         <div class="field-row">
-                            <label>Major Achievements after Passing</label>
+                            <label>Major Achievements after Passing *</label>
                             <textarea id="qrAchievements" class="form-control" rows="3"
-                                placeholder="Awards, recognitions, etc."></textarea>
+                                placeholder="Awards, recognitions, etc." required></textarea>
                         </div>
 
                         <div class="section-title"><i class="fas fa-star"></i> &nbsp;Feedback about College</div>
@@ -1116,14 +1116,11 @@
                                 <p>Gifts Given</p>
                             </div>
                         </div>
-                        <div class="stat-card"
-                            style="grid-column: span 3; background: #f8fafc; border: 1px solid #e2e8f0; height: auto;">
+                        <div class="stat-card" style="grid-column: span 3; background: #f8fafc; border: 1px solid #e2e8f0; height: auto;">
                             <div style="padding: 1rem; width: 100%;">
-                                <h4
-                                    style="margin-bottom: 0.75rem; font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">
-                                    Registered per Department</h4>
-                                <div id="dept-stats-container"
-                                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                                <h4 style="margin-bottom: 0.75rem; font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">
+                                    Branch Attendance (Attended / Registered)</h4>
+                                <div id="dept-stats-container" style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
                                     <!-- Dynamic content here -->
                                 </div>
                             </div>
@@ -1149,8 +1146,11 @@
                             </div>
                             <p style="color:var(--text-muted); font-size:.875rem; margin-bottom:1rem;">Download complete
                                 attendance & gift records as CSV.</p>
-                            <button class="btn" onclick="exportCSV()"><i class="fas fa-file-export"></i> Export to
+                            <button class="btn" style="margin-bottom: 0.75rem;" onclick="exportCSV()"><i class="fas fa-file-export"></i> Export to
                                 CSV</button>
+                            <button class="btn btn-secondary" style="width: 100%; border-color: var(--primary); color: var(--primary); background: white;" onclick="downloadAllStudentPDFs()">
+                                <i class="fas fa-file-pdf"></i> Download All Form PDFs
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -1251,12 +1251,6 @@
                                     style="font-size: 0.9rem; color: var(--text-muted); font-weight: normal; margin-left: 8px;"></span>
                             </h3>
                             <div style="display:flex; gap:0.5rem; align-items:center;">
-                                <button id="fixNamesBtn" class="btn btn-danger btn-sm" onclick="fixBranchNames()"
-                                    title="Convert all IT/IF names to Information Technology"
-                                    style="background:#fee2e2; color:#b91c1c; border-color:#fecaca; display:none;">
-                                    <i class="fas fa-magic"></i> Fix Names <span id="fixCountBadge"
-                                        style="background:#ef4444; color:white; padding:1px 6px; border-radius:10px; font-size:0.75rem; margin-left:4px;">0</span>
-                                </button>
                                 <select id="adminBranchFilter" class="form-control"
                                     style="max-width:160px; height:38px; font-size:0.85rem;"
                                     onchange="renderAdminTable()">
@@ -1490,10 +1484,17 @@
                         <input type="text" id="editName" class="form-control"
                             oninput="this.value = this.value.toUpperCase()" required>
                     </div>
-                    <div class="form-group">
-                        <label>Mobile Number (Primary Key)</label>
-                        <input type="tel" id="editMobile" class="form-control" maxlength="10" required readonly
-                            style="background:#f1f5f9;">
+                    <div class="form-group" style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+                        <div>
+                            <label>Mobile Number (Primary Key)</label>
+                            <input type="tel" id="editMobile" class="form-control" maxlength="10" required readonly
+                                style="background:#f1f5f9;">
+                        </div>
+                        <div>
+                            <label>Entry Number</label>
+                            <input type="text" id="editEntryNo" class="form-control" placeholder="EJ001" 
+                                oninput="this.value = this.value.toUpperCase()">
+                        </div>
                     </div>
                     <div class="form-group" style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
                         <div>
@@ -2089,38 +2090,64 @@
             });
             if (!fbComplete) { showEntryError('Please answer all feedback questions.'); return; }
 
+            // Validate all text fields are filled
+            const requiredFields = [
+                { id: 'qrName', label: 'Name' },
+                { id: 'qrGender', label: 'Gender' },
+                { id: 'qrDob', label: 'Date of Birth' },
+                { id: 'qrCourse', label: 'Branch' },
+                { id: 'qrAddress', label: 'Address' },
+                { id: 'qrEmail', label: 'Email' },
+                { id: 'qrWorkplace', label: 'Workplace/Study Info' },
+                { id: 'qrDesignation', label: 'Designation' },
+                { id: 'qrAchievements', label: 'Achievements' }
+            ];
+
+            for (const field of requiredFields) {
+                const val = document.getElementById(field.id).value.trim();
+                if (!val) {
+                    showEntryError(`Please fill the mandatory field: ${field.label}`);
+                    return;
+                }
+            }
+
             const now = new Date();
             const entryTime = format12HourTime(now);
-            // course may be disabled, get value via existing or getElementById
             const courseEl = document.getElementById('qrCourse');
             const course = courseEl.value || (existing && existing.course) || '';
-            const entryNo = generateEntryNumber(course);
+            
+            // Re-fetch fresh data right before saving to minimize race conditions
+            alumniRef.once('value').then(snap => {
+                const freshAlumni = [];
+                snap.forEach(c => { if(c.val()) freshAlumni.push(c.val()); });
+                const entryNo = generateEntryNumber(course, freshAlumni);
 
-            const student = {
-                name: document.getElementById('qrName').value.trim() || (existing && existing.name) || '',
-                mobile: mobile,
-                gender: document.getElementById('qrGender').value || (existing && existing.gender) || '',
-                dob: document.getElementById('qrDob').value || '',
-                course: course,
-                batch: (existing && existing.batch) || '',
-                address: document.getElementById('qrAddress').value.trim() || '',
-                email: document.getElementById('qrEmail').value.trim() || '',
-                workplace: document.getElementById('qrWorkplace').value.trim() || '',
-                designation: document.getElementById('qrDesignation').value.trim() || '',
-                achievements: document.getElementById('qrAchievements').value.trim() || '',
-                remark: document.getElementById('qrRemark').value.trim() || '',
-                feedback: feedback,
-                attended: true,
-                entryTime: entryTime,
-                departmentVerified: (existing && existing.departmentVerified) || false,
-                giftGiven: (existing && existing.giftGiven) || false,
-                entryNo: entryNo,
-                registeredAt: new Date().toISOString()
-            };
+                const student = {
+                    name: document.getElementById('qrName').value.trim() || (existing && existing.name) || '',
+                    mobile: mobile,
+                    gender: document.getElementById('qrGender').value || (existing && existing.gender) || '',
+                    dob: document.getElementById('qrDob').value || '',
+                    course: course,
+                    batch: (existing && existing.batch) || '',
+                    address: document.getElementById('qrAddress').value.trim() || '',
+                    email: document.getElementById('qrEmail').value.trim() || '',
+                    workplace: document.getElementById('qrWorkplace').value.trim() || '',
+                    designation: document.getElementById('qrDesignation').value.trim() || '',
+                    achievements: document.getElementById('qrAchievements').value.trim() || '',
+                    remark: document.getElementById('qrRemark').value.trim() || '',
+                    feedback: feedback,
+                    attended: true,
+                    entryTime: entryTime,
+                    departmentVerified: (existing && existing.departmentVerified) || false,
+                    giftGiven: (existing && existing.giftGiven) || false,
+                    entryNo: entryNo,
+                    registeredAt: new Date().toISOString()
+                };
 
-            alumniRef.child(mobile).set(student)
-                .then(() => showStudentSuccess(student.name, entryNo))
-                .catch(() => showEntryError('Error saving. Please try again.'));
+                alumniRef.child(mobile).set(student)
+                    .then(() => showStudentSuccess(student.name, entryNo))
+                    .catch(() => showEntryError('Error saving. Please try again.'));
+            });
         }
 
         // Clerk Manual Entry
@@ -2147,9 +2174,10 @@
             }
             const now = new Date();
             const entryTime = format12HourTime(now);
+            const entryTimestamp = now.getTime();
             const entryNo = generateEntryNumber(student.course);
 
-            alumniRef.child(mobile).update({ attended: true, entryTime, entryNo, departmentVerified: true })
+            alumniRef.child(mobile).update({ attended: true, entryTime, entryTimestamp, entryNo, departmentVerified: true })
                 .then(() => {
                     if (source === 'self') showStudentSuccess(student.name, entryNo);
                     else {
@@ -2160,28 +2188,80 @@
                 .catch(() => showToast('Error updating database', 'error'));
         }
 
-        function generateEntryNumber(course) {
-            let code = 'XX';
-            if (course) {
-                const c_lc = course.toLowerCase();
-                if (c_lc.includes('mechanical')) code = 'ME';
-                else if (c_lc.includes('information')) code = 'IF';
-                else if (c_lc.includes('electrical')) code = 'EE';
-                else if (c_lc.includes('electronics') || c_lc.includes('telecom')) code = 'EJ';
-                else if (c_lc.includes('civil')) code = 'CE';
-                else if (c_lc.includes('computer')) code = 'CM';
-                else if (c_lc.includes('chemical')) code = 'CH';
-                else if (c_lc.includes('instrumentation')) code = 'IS';
-            }
+        function getBranchCode(course) {
+            if (!course) return 'XX';
+            const c_lc = course.toLowerCase();
+            if (c_lc.includes('mechanical')) return 'ME';
+            if (c_lc.includes('information')) return 'IF';
+            if (c_lc.includes('electrical')) return 'EE';
+            if (c_lc.includes('electronics') || c_lc.includes('telecom')) return 'EJ';
+            if (c_lc.includes('civil')) return 'CE';
+            if (c_lc.includes('computer')) return 'CM';
+            if (c_lc.includes('chemical')) return 'CH';
+            if (c_lc.includes('instrumentation')) return 'IS';
+            return 'XX';
+        }
 
+        function generateEntryNumber(course, list = []) {
+            const code = getBranchCode(course);
+            const source = list.length > 0 ? list : alumniList;
+            
             let max = 0;
-            alumniList.forEach(a => {
+            source.forEach(a => {
                 if (a.entryNo && a.entryNo.startsWith(code)) {
                     const n = parseInt(a.entryNo.replace(code, ''), 10);
                     if (!isNaN(n) && n > max) max = n;
                 }
             });
             return code + String(max + 1).padStart(3, '0');
+        }
+
+        async function fixEntrySequence() {
+            if (!confirm("This will re-assign Entry Numbers sequentially by submission time (001, 002...) for ALL departments to fix duplicates. Continue?")) return;
+            
+            showToast("Syncing fresh data...", "info");
+            const snap = await alumniRef.once('value');
+            const data = [];
+            snap.forEach(c => data.push(c.val()));
+
+            const branchGroups = {};
+            data.filter(a => a.attended).forEach(a => {
+                const bCode = getBranchCode(a.course);
+                if (!branchGroups[bCode]) branchGroups[bCode] = [];
+                branchGroups[bCode].push(a);
+            });
+
+            const updates = {};
+            let changeCount = 0;
+
+            Object.keys(branchGroups).forEach(code => {
+                // Sort by entry timestamp, fallback to entryTime string
+                branchGroups[code].sort((a, b) => {
+                    if (a.entryTimestamp && b.entryTimestamp) return a.entryTimestamp - b.entryTimestamp;
+                    const tA = a.entryTime || "";
+                    const tB = b.entryTime || "";
+                    if (tA !== tB) return tA.localeCompare(tB);
+                    return (a.name || "").localeCompare(b.name || "");
+                });
+
+                branchGroups[code].forEach((s, idx) => {
+                    const targetNo = code + String(idx + 1).padStart(3, '0');
+                    if (s.entryNo !== targetNo) {
+                        updates[`${s.mobile}/entryNo`] = targetNo;
+                        changeCount++;
+                    }
+                });
+            });
+
+            if (changeCount === 0) {
+                showToast("Entry sequences are already correct!", "success");
+                return;
+            }
+
+            showToast(`Updating ${changeCount} records...`, "info");
+            alumniRef.update(updates)
+                .then(() => showToast(`Successfully fixed ${changeCount} entry numbers!`, "success"))
+                .catch(e => showToast("Error during fix: " + e.message, "error"));
         }
 
         // Gift Toggle (Clerk)
@@ -2210,21 +2290,24 @@
             document.getElementById('ad-attended').innerText = alumniList.filter(a => a.attended).length;
             document.getElementById('ad-gifts').innerText = alumniList.filter(a => a.giftGiven).length;
 
-            // Department-wise counts
-            const counts = {};
+            // Department-wise stats
+            const stats = {};
             alumniList.forEach(a => {
                 const dept = a.course || 'Other';
-                counts[dept] = (counts[dept] || 0) + 1;
+                if (!stats[dept]) stats[dept] = { total: 0, attended: 0 };
+                stats[dept].total++;
+                if (a.attended) stats[dept].attended++;
             });
 
             const container = document.getElementById('dept-stats-container');
             if (container) {
-                container.innerHTML = Object.keys(counts).sort().map(dept => {
+                container.innerHTML = Object.keys(stats).sort().map(dept => {
                     const shortDept = dept.replace(/^.+\((.+)\)$/, '$1'); // Extract abbreviation if exists
+                    const s = stats[dept];
                     return `
-                        <div style="background: white; padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px solid #edf2f7; display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-size: 0.8rem; font-weight: 500; color: var(--text-muted);">${shortDept}</span>
-                            <span style="font-weight: 700; color: var(--primary); font-size: 1rem;">${counts[dept]}</span>
+                        <div style="background: white; padding: 0.4rem 1rem; border-radius: 20px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                            <span style="font-size: 0.85rem; font-weight: 700; color: var(--primary);">${shortDept}</span>
+                            <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-main);">${s.attended} <span style="color:var(--text-muted); font-weight:400; font-size:0.75rem;">/ ${s.total}</span></span>
                         </div>
                     `;
                 }).join('');
@@ -2280,7 +2363,6 @@
 
         function renderAdminTable() {
             updateAdminBranchDropdown();
-            updateFixBadge();
 
             const q = (document.getElementById('adminSearch')?.value || '').toLowerCase();
             const branch = document.getElementById('adminBranchFilter')?.value || '';
@@ -2299,7 +2381,20 @@
             tbody.innerHTML = '';
             if (filtered.length === 0) { emptyMsg.style.display = 'block'; return; }
             emptyMsg.style.display = 'none';
-            [...filtered].reverse().forEach(a => {
+            const sorted = [...filtered].sort((a, b) => {
+                // Primary Sort: Department (Course)
+                const courseA = (a.course || '').toLowerCase();
+                const courseB = (b.course || '').toLowerCase();
+                if (courseA < courseB) return -1;
+                if (courseA > courseB) return 1;
+
+                // Secondary Sort: Entry Number
+                const entryA = a.entryNo || 'ZZZ999'; // Handles nulls
+                const entryB = b.entryNo || 'ZZZ999';
+                return entryA.localeCompare(entryB, undefined, { numeric: true, sensitivity: 'base' });
+            });
+
+            sorted.forEach(a => {
                 const fullCourse = a.course || '—';
                 let short = fullCourse;
 
@@ -2387,12 +2482,8 @@
             document.getElementById('feedbackModal').classList.add('show');
         }
 
-        function downloadStudentPDF(mobile) {
-            const s = alumniList.find(a => a.mobile === mobile);
-            if (!s) return;
-
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+        function addStudentPDFContent(doc, s, isFirst = true) {
+            if (!isFirst) doc.addPage();
 
             // Setup Fonts & Header
             doc.setFont("times", "bold");
@@ -2463,8 +2554,7 @@
                 ]);
             });
 
-            // Add new page for Feedback Table
-            doc.addPage();
+            doc.addPage(); // Page 2 for Feedback
 
             doc.autoTable({
                 startY: 20,
@@ -2485,10 +2575,8 @@
             });
 
             let finalY = doc.lastAutoTable.finalY + 15;
-
             doc.setFont("times", "bold");
             doc.text("General Remark (If any):-", 15, finalY);
-
             doc.setFont("times", "normal");
             doc.text(s.remark || "", 15, finalY + 8);
 
@@ -2496,8 +2584,49 @@
             doc.setFont("times", "bold");
             doc.text("Date", 15, finalY);
             doc.text("Signature", 160, finalY);
+        }
 
-            doc.save(`Alumni_Form_${s.name.replace(/\\s+/g, '_')}_${s.mobile}.pdf`);
+        function downloadStudentPDF(mobile) {
+            const s = alumniList.find(a => a.mobile === mobile);
+            if (!s) return;
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            addStudentPDFContent(doc, s, true);
+            doc.save(`Alumni_Form_${s.name.replace(/\s+/g, '_')}_${s.mobile}.pdf`);
+        }
+
+        async function downloadAllStudentPDFs() {
+            const attendees = alumniList.filter(a => a.attended);
+            if (attendees.length === 0) {
+                showToast('No attended students to export.', 'error');
+                return;
+            }
+
+            // Sort by branch then entry number
+            const sorted = [...attendees].sort((a, b) => {
+                const courseA = (a.course || '').toLowerCase();
+                const courseB = (b.course || '').toLowerCase();
+                if (courseA !== courseB) return courseA.localeCompare(courseB);
+                const entryA = a.entryNo || "";
+                const entryB = b.entryNo || "";
+                return entryA.localeCompare(entryB, undefined, { numeric: true });
+            });
+
+            showToast(`Generating bulk PDF for ${sorted.length} students...`, 'info');
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            for (let i = 0; i < sorted.length; i++) {
+                addStudentPDFContent(doc, sorted[i], i === 0);
+                // Simple progress indicator for very large lists
+                if (i > 0 && i % 10 === 0) {
+                    showToast(`Processed ${i} of ${sorted.length}...`, 'info');
+                }
+            }
+
+            doc.save(`All_Alumni_Forms_${new Date().toLocaleDateString('en-GB').replace(/\//g, '-')}.pdf`);
+            showToast('Bulk PDF download started!', 'success');
         }
 
         function closeFeedbackModal() {
@@ -2511,6 +2640,7 @@
             document.getElementById('editOldMobile').value = s.mobile;
             document.getElementById('editMobile').value = s.mobile;
             document.getElementById('editName').value = s.name || '';
+            document.getElementById('editEntryNo').value = s.entryNo || '';
             document.getElementById('editGender').value = s.gender || 'Male';
             document.getElementById('editCourse').value = s.course || 'Mechanical Engineering (ME)';
             document.getElementById('editBatch').value = s.batch || '';
@@ -2525,19 +2655,21 @@
             e.preventDefault();
             const mobile = document.getElementById('editMobile').value;
             const oldStudent = alumniList.find(a => a.mobile === mobile);
-
+            
             const newCourse = document.getElementById('editCourse').value;
             const updateData = {
                 name: document.getElementById('editName').value.trim(),
                 gender: document.getElementById('editGender').value,
                 course: newCourse,
                 batch: document.getElementById('editBatch').value.trim(),
+                entryNo: document.getElementById('editEntryNo').value.trim() || null,
                 edited: true,
                 editedAt: new Date().toISOString()
             };
 
-            // If branch changed, update entry number too
-            if (oldStudent && oldStudent.course !== newCourse) {
+            // If branch changed and entryNo wasn't manually edited to something else, refresh it
+            const currentEntryNoField = document.getElementById('editEntryNo').value.trim();
+            if (oldStudent && oldStudent.course !== newCourse && (!currentEntryNoField || currentEntryNoField === oldStudent.entryNo)) {
                 updateData.entryNo = generateEntryNumber(newCourse);
             }
 
